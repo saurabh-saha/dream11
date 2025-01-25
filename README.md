@@ -1,64 +1,91 @@
-# dream11
-design a low level dream11 backend server
 
-FCL (Modified version of Dream 11)    
 
-RULES:    
+# Cricket Game Simulation
 
-There are 11 defined teams in this league, and each team has 11 players.  
-IND [1 - 11], PAK[12 - 22 ], SLC[23 - 33], SA[34 - 44], WI [45 - 55], BAN [56 - 66], AUS [67 - 77], ENG[78 - 88], NZ [89 - 99], AFG [100 - 110], ZWE[111 - 121]    
+This project simulates a cricket game between two teams, allowing players to register, play, and track scores. It also includes the ability to start and end games, and determine the top scorer.
 
-Note: Numbers mentioned above in the [] are the names of the players for simplicity. Where the first 6 numbers are batsmen and the next 5 numbers are bowlers.     	 	
+## Features
 
-A game will be played between two teams. 	 	 	
-Multiple games can happen parallelly. 	 	 	
-Each team has 6 batsmen and 5 bowlers 	 	 	
-Users can create their own team for game mixing players from both teams, provided they should have 6 batsmen and 5 bowlers. 	 	 	
-Each ball bowled will result in one of the outcomes - 1,2,4,6 run or Batsman getting out (represented as -1). 	 	 	
-These are the following points assigned to batsmen or the bowler based on the outcome,  	 		 		
-1 run - Batsmen : 0.5 point , Bowler : 0 point 		 		 		
-2 runs - Batsmen : 1 point , Bowler : (- 0.5) point 		 		 		
-4 runs - Batsmen : 2 points, Bowler : (-1) point 		 		 		
-6 runs - Batsmen : 3 points, Bowler : (-2 ) points 		 		 		
-Batsmen getting out - Batsmen: (- 2) points, Bowler: 4 points 		 	 	 	 	
+- **Create Game**: Create a new game between two teams.
+- **Create Team**: Register a team of players for a game.
+- **Play**: Update player scores based on batting and bowling.
+- **Start Game**: Begin the game after teams have been registered.
+- **End Game**: End the game and determine the winner based on scores.
+- **Top Scorers**: Retrieve the top K players by score.
 
-A game can be ended at any point in time. In that case, the user with the highest points wins. 	 	 	
+## Classes
 
-You don’t need to maintain any of the cricket rules in your code. 	 	 	
+### `Game`
+Represents a cricket game with attributes like the game ID, teams, and game status.
 
-Based on the above rules, you should implement the following Signature, 	      
+- **Methods**:
+  - `check_game_exists(t1, t2)`: Checks if a game between the teams exists.
+  - `start()`: Starts the game.
+  - `end()`: Ends the game.
 
-Create a game    
-public int createGame (String team1, String team2) {}    
-Explanation:  Given two team names, create a game and return a unique ID for this game.    
+### `Player`
+Represents a player in the game with attributes like name, team, and scores.
 
-Create a team for a user (in a game)    
-public void createTeamForUser(Int gameId, ListInteger players, String userName)    
-Explanation:  Given a gameId and List of players, a team should be created for the user      
+- **Methods**:
+  - `add_score(bat_id, bowl_id, score)`: Adds score based on batting and bowling.
 
-Start Game  public void startGame(int gameId)    
-Explanation:  Given a gameId, start the game. Hint - Certain functions will work only when the game is running.      
+## Setup
 
-Play Game    public void play(Int gameId, Int batsmen, Int bowler, int outcome)    
-Explanation:  An external system will call you with the outcome of each ball. Given a gameId Batsmen id, bowler id, and outcome, increment/decrement points accordingly for users associated with this game. To keep it simple, We just follow what the external system sends us, and we don’t need to maintain the cricket rules in our logic.      
+### Prerequisites
 
-Get top k user for a game    
-public ListString getTopKUsers(int gameId, int K)    
-Explanation:  Given a gameId, get the top k user who has maximum points so far. Top K users will be displayed in the app, and people keep refreshing now and then to see the top k users      
+- Python 3.x
 
-End a game    
-public String endGame(int gameId)    
-Explanation:  Given a gameId, end the game and return the user who is the winner with maximum points. Additional - In case of a tie, use your own strategy for tie-breaking.    
+### Installation
 
-Instructions - 
-You will be evaluated on 4 core things    
-- Approach towards the problem    
-- - Code Structure   
-- - Correctness    
-- - Race Conditions      
-- 
-- - Please go through the entire document and ask if you have any doubts  
-- - Use in-memory data structure but try to structure the code so that you can swap in-memory data-structures with a database easily.  
-- - The code will be checked manually by the interviewer towards the end of interview  
-- - Focus on correctness and code structure first. Code should be workable towards the interview.  
-- - Think of this system running in a production setting. Try to find which functions will be called more often than others and then structure your code accordingly.
+1. **Clone the repository (if applicable):**
+   ```bash
+   git clone https://github.com/your-repo/cricket-game-simulation.git
+   cd cricket-game-simulation
+   ```
+
+2. **Set up a virtual environment (optional but recommended):**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows use 'venv\Scripts\activate'
+   ```
+
+3. **Install dependencies (if any):**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   If `requirements.txt` is not present, no additional packages are required for this script.
+
+## Running the Game
+
+You can run the script as follows:
+
+1. Run the Python file:
+   ```bash
+   python game_simulation.py
+   ```
+
+2. This will simulate the creation of a game, team registrations, scoring, and determine the winner.
+
+### Example Execution
+
+```bash
+game1 = createGame('ind', 'pak')
+print(game1)
+createTeamForUser(game1, [1,2,3,4,5,6,7,8,9,10,11], 'p1')
+createTeamForUser(game1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 21], 'p2')
+createTeamForUser(game1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 22], 'p3')
+startGame(game1)
+play(game1, 90, 21, 1)
+print('Top Score', getTopKUsers(game1, 1))
+endGame(game1)
+```
+
+This will create a game between the teams "ind" and "pak," register teams, update scores, and determine the winner.
+
+## Error Handling
+
+- Invalid players are flagged if they don't belong to the predefined batsmen or bowler list.
+- Duplicate team registrations are prevented.
+- Games cannot be started or ended without the required conditions being met.
+
