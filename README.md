@@ -1,5 +1,3 @@
-
-
 # Cricket Game Simulation
 
 This project simulates a cricket game between two teams, allowing players to register, play, and track scores. It also includes the ability to start and end games, and determine the top scorer.
@@ -81,6 +79,22 @@ print('Top Score', getTopKUsers(game1, 1))
 endGame(game1)
 ```
 
+### Sample Output
+
+```
+Game Created ID 1738045329
+Create Team For User p1
+Create Team For User p2
+Create Team For User p3
+Game Started ID 1738045329
+Scores updated p2 1
+Top Score ['p2', 'p1', 'p3']
+Game Ended ID 1738045329
+Winner score: 1
+Winner ['p2']
+Game Created ID 1738045330
+```
+
 This will create a game between the teams "ind" and "pak," register teams, update scores, and determine the winner.
 
 ## Error Handling
@@ -88,4 +102,3 @@ This will create a game between the teams "ind" and "pak," register teams, updat
 - Invalid players are flagged if they don't belong to the predefined batsmen or bowler list.
 - Duplicate team registrations are prevented.
 - Games cannot be started or ended without the required conditions being met.
-
